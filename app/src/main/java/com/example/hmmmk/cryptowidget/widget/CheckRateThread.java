@@ -30,6 +30,7 @@ public class CheckRateThread extends Thread {
 
         do {
             try {
+                //TODO: Reduce sleep time
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();

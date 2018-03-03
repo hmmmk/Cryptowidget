@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cryptowidget</string>
+
+    <string name="minutes">30M</string>
+    <string name="hours">24H</string>
+    <string name="days">7D</string>
 </resources>

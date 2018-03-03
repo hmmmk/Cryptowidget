@@ -4,14 +4,17 @@ import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.hmmmk.cryptowidget.R;
-import com.example.hmmmk.cryptowidget.Utills;
+import com.example.hmmmk.cryptowidget.Utils;
 import com.example.hmmmk.cryptowidget.interfaces.OnResponseListener;
 
 import java.text.DecimalFormat;
@@ -21,10 +24,6 @@ import java.text.DecimalFormat;
  */
 
 public class CryptoRateService extends Service implements OnResponseListener {
-
-    private double currentRate = 0;
-    private double pRate = 0;
-    private double ppRate = 0;
 
     private final static String TAG = "CRYPTO_SERVICE";
 
@@ -60,31 +59,6 @@ public class CryptoRateService extends Service implements OnResponseListener {
     @Override
     public void onResponse(ResponseModel model) {
 
-        /*AppWidgetManager widgetManager = AppWidgetManager.getInstance(getApplicationContext());
-
-        ComponentName thisWidget = new ComponentName(getApplicationContext(),
-                CryptoWidget.class);
-        int[] allWidgetIds = widgetManager.getAppWidgetIds(thisWidget);
-
-        RemoteViews views = new RemoteViews(getApplicationContext().getPackageName(),
-                R.layout.widget_crypto_rate);
-
-        views.setTextViewText(R.id.mrate_tv, createSpannable(model));
-
-        widgetManager.updateAppWidget(allWidgetIds, views);*/
-
-        createSpannable(model);
-    }
-
-    public SpannableString createSpannable(ResponseModel model) {
-        DecimalFormat format = new DecimalFormat(Utills.DECIMAL_ACCURACCY_2);
-
-        double currentRate = Double.valueOf(model.getPriceUsd());
-        double pRate = currentRate +
-                numFromPercent(currentRate, Double.valueOf(model.getPercentChange24h()));
-        double ppRate = currentRate +
-                numFromPercent(currentRate, Double.valueOf(model.getPercentChange7d()));
-
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(getApplicationContext());
 
         ComponentName thisWidget = new ComponentName(getApplicationContext(),
@@ -94,16 +68,113 @@ public class CryptoRateService extends Service implements OnResponseListener {
         RemoteViews views = new RemoteViews(getApplicationContext().getPackageName(),
                 R.layout.widget_crypto_rate);
 
-        views.setTextViewText(R.id.mrate_tv, String.valueOf(format.format(currentRate)) + "$");
-        views.setTextViewText(R.id.hrate_tv, String.valueOf(format.format(pRate)) + "$");
-        views.setTextViewText(R.id.drate_tv, String.valueOf(format.format(ppRate)) + "$");
+        SpannableString[] rates = createSpannable(model);
+
+        views.setTextViewText(R.id.mrate_tv, rates[0]);
+        views.setTextViewText(R.id.hrate_tv, rates[1]);
+        views.setTextViewText(R.id.drate_tv, rates[2]);
 
         widgetManager.updateAppWidget(allWidgetIds, views);
 
-        return null;
+        createSpannable(model);
     }
 
-    public double numFromPercent(double number, double percent) {
-        return number * percent / 100;
+    //TODO: Simplify
+    public SpannableString[] createSpannable(ResponseModel model) {
+        DecimalFormat format = new DecimalFormat(Utils.DECIMAL_ACCURACY_2);
+
+        double percentChange = Double.valueOf(model.getPercentChange1h());
+        double p_percentChange = Double.valueOf(model.getPercentChange24h());
+        double pp_percentChange = Double.valueOf(model.getPercentChange7d());
+
+        double currentRate = Double.valueOf(model.getPriceUsd());
+        double pRate = currentRate +
+                Utils.numFromPercent(currentRate, p_percentChange);
+        double ppRate = currentRate +
+                Utils.numFromPercent(currentRate, pp_percentChange);
+
+        int color = percentChange > 0 ? Color.GREEN : Color.RED;
+        int pColor = p_percentChange > 0 ? Color.GREEN : Color.RED;
+        int ppColor = pp_percentChange > 0 ? Color.GREEN : Color.RED;
+
+        StringBuilder percentChangeStr =
+                new StringBuilder("(" + String.valueOf(Math.abs(percentChange)) + "%)");
+        StringBuilder p_percentChangeStr =
+                new StringBuilder("(" + String.valueOf(Math.abs(p_percentChange)) + "%)");
+        StringBuilder pp_percentChangeStr =
+                new StringBuilder("(" + String.valueOf(Math.abs(pp_percentChange)) + "%)");
+
+        String rateString = format.format(currentRate) + "$";
+        String pRateString = format.format(pRate) + "$";
+        String ppRateString = format.format(ppRate) + "$";
+
+        SpannableString currentRateStringBuilder =
+                new SpannableString(rateString +
+                        "\n" +
+                        percentChangeStr +
+                        getApplicationContext().getString(R.string.minutes));
+        SpannableString pRateStringBuilder =
+                new SpannableString(pRateString +
+                        "\n" +
+                        p_percentChangeStr +
+                        getApplicationContext().getString(R.string.hours));
+        SpannableString ppRateStringBuilder =
+                new SpannableString(ppRateString +
+                        "\n" +
+                        pp_percentChangeStr +
+                        getApplicationContext().getString(R.string.days));
+
+        //Setting spans to lines
+
+        currentRateStringBuilder.setSpan(new RelativeSizeSpan(0.7f),
+                rateString.length(),
+                rateString.length() + percentChangeStr.length() + 1,
+                0);
+
+        pRateStringBuilder.setSpan(new RelativeSizeSpan(0.7f),
+                pRateString.length(),
+                pRateString.length() + p_percentChangeStr.length() + 1,
+                0);
+
+        ppRateStringBuilder.setSpan(new RelativeSizeSpan(0.7f),
+                ppRateString.length(),
+                ppRateString.length() + pp_percentChangeStr.length() + 1,
+                0);
+
+        currentRateStringBuilder.setSpan(new ForegroundColorSpan(color),
+                rateString.length(),
+                rateString.length() + percentChangeStr.length() + 1,
+                0);
+
+        pRateStringBuilder.setSpan(new ForegroundColorSpan(pColor),
+                pRateString.length(),
+                pRateString.length() + p_percentChangeStr.length() + 1,
+                0);
+
+        ppRateStringBuilder.setSpan(new ForegroundColorSpan(ppColor),
+                ppRateString.length(),
+                ppRateString.length() + pp_percentChangeStr.length() + 1,
+                0);
+
+        currentRateStringBuilder.setSpan(new RelativeSizeSpan(0.5f),
+                currentRateStringBuilder.length() - getApplicationContext().getString(R.string.minutes).length(),
+                currentRateStringBuilder.length(),
+                0);
+
+        pRateStringBuilder.setSpan(new RelativeSizeSpan(0.5f),
+                pRateStringBuilder.length() - getApplicationContext().getString(R.string.hours).length(),
+                pRateStringBuilder.length(),
+                0);
+
+        ppRateStringBuilder.setSpan(new RelativeSizeSpan(0.5f),
+                ppRateStringBuilder.length() - getApplicationContext().getString(R.string.days).length(),
+                ppRateStringBuilder.length(),
+                0);
+
+        return new SpannableString [] {
+                currentRateStringBuilder,
+                pRateStringBuilder,
+                ppRateStringBuilder
+        };
     }
 }
