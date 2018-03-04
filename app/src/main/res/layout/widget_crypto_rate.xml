@@ -1,70 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<FrameLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:layout_margin="8dp"
-    android:orientation="vertical"
     android:background="@drawable/rounded_background"
-    android:weightSum="2"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/selectedCurrencyTv"
+    <ProgressBar
+        android:id="@+id/loading_Pb"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="28sp"
-        android:textColor="#fff"
-        android:text="BTC"/>
+        android:visibility="invisible"/>
 
     <LinearLayout
-        android:layout_height="0dp"
+        android:id="@+id/contentView"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2"
-        android:weightSum="2"
-        android:baselineAligned="true">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <TextView
-            android:id="@+id/hrate_tv"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#fff"
-            android:text="8934$"/>
-
-        <TextView
-            android:id="@+id/mrate_tv"
+            android:id="@+id/selectedCurrencyTv"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="0"
-            android:textAlignment="center"
             android:gravity="center"
-            android:textSize="30sp"
+            android:textSize="28sp"
             android:textColor="#fff"
-            android:text="9000$"/>
+            android:text="BTC"/>
 
-        <TextView
-            android:id="@+id/drate_tv"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:textColor="#fff"
-            android:text="10023$"/>
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:weightSum="2"
+            android:baselineAligned="true">
+
+            <TextView
+                android:id="@+id/hrate_tv"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:text="8934$"/>
+
+            <TextView
+                android:id="@+id/mrate_tv"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="0"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="#fff"
+                android:text="9000$"/>
+
+            <TextView
+                android:id="@+id/drate_tv"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:text="10023$"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

@@ -29,15 +29,19 @@ public class CryptoRateService extends Service implements OnResponseListener {
 
     private CheckRateThread checkRateThread = new CheckRateThread();
 
+    private ResponseModel localModel;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "SERVICE STARTED");
 
         checkRateThread.setListener(this);
 
-        if (!checkRateThread.isAlive()) {
+        if (!checkRateThread.isAlive())
             checkRateThread.start();
-        }
+
+        if (localModel != null)
+            onResponse(localModel);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -58,9 +62,9 @@ public class CryptoRateService extends Service implements OnResponseListener {
 
     @Override
     public void onResponse(ResponseModel model) {
+        localModel = model;
 
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(getApplicationContext());
-
         ComponentName thisWidget = new ComponentName(getApplicationContext(),
                 CryptoWidget.class);
         int[] allWidgetIds = widgetManager.getAppWidgetIds(thisWidget);
@@ -88,9 +92,9 @@ public class CryptoRateService extends Service implements OnResponseListener {
         double pp_percentChange = Double.valueOf(model.getPercentChange7d());
 
         double currentRate = Double.valueOf(model.getPriceUsd());
-        double pRate = currentRate +
+        double pRate = currentRate -
                 Utils.numFromPercent(currentRate, p_percentChange);
-        double ppRate = currentRate +
+        double ppRate = currentRate -
                 Utils.numFromPercent(currentRate, pp_percentChange);
 
         int color = percentChange > 0 ? Color.GREEN : Color.RED;

@@ -29,13 +29,6 @@ public class CheckRateThread extends Thread {
         Log.d(TAG, "THREAD STARTED");
 
         do {
-            try {
-                //TODO: Reduce sleep time
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             Log.d(TAG, "GETTING DATA FROM SERVER");
 
             ExtendedApplication.getAnInterface().geCurrency("bitcoin")
@@ -63,6 +56,12 @@ public class CheckRateThread extends Thread {
 
                         }
                     });
+            try {
+                //TODO: Reduce sleep time
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } while (!stopFlag);
 
         Log.d(TAG, "THREAD STOPPED");
