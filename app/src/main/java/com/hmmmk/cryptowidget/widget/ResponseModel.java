@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget.widget;
+package com.hmmmk.cryptowidget.widget;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

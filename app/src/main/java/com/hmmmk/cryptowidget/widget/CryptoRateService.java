@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget.widget;
+package com.hmmmk.cryptowidget.widget;
 
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -13,9 +13,9 @@ import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.example.hmmmk.cryptowidget.R;
-import com.example.hmmmk.cryptowidget.common.Utils;
-import com.example.hmmmk.cryptowidget.interfaces.OnResponseListener;
+import com.hmmmk.cryptowidget.R;
+import com.hmmmk.cryptowidget.common.Utils;
+import com.hmmmk.cryptowidget.interfaces.OnResponseListener;
 
 import java.text.DecimalFormat;
 

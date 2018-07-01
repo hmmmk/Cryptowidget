@@ -1,8 +1,8 @@
-package com.example.hmmmk.cryptowidget.common;
+package com.hmmmk.cryptowidget.common;
 
 import android.app.Application;
 
-import com.example.hmmmk.cryptowidget.interfaces.RestInterface;
+import com.hmmmk.cryptowidget.interfaces.RestInterface;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

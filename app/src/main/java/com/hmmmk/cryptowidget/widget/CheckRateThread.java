@@ -1,10 +1,10 @@
-package com.example.hmmmk.cryptowidget.widget;
+package com.hmmmk.cryptowidget.widget;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.hmmmk.cryptowidget.common.ExtendedApplication;
-import com.example.hmmmk.cryptowidget.interfaces.OnResponseListener;
+import com.hmmmk.cryptowidget.common.ExtendedApplication;
+import com.hmmmk.cryptowidget.interfaces.OnResponseListener;
 
 import java.util.List;
 
@@ -18,10 +18,8 @@ import retrofit2.Response;
 
 public class CheckRateThread extends Thread {
 
-    boolean stopFlag = false;
-
     private final static String TAG = "CRYPTO_THREAD";
-
+    boolean stopFlag = false;
     private OnResponseListener listener;
 
     @Override

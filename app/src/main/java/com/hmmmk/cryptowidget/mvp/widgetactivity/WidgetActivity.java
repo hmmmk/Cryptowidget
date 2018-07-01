@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget.mvp.widgetactivity;
+package com.hmmmk.cryptowidget.mvp.widgetactivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

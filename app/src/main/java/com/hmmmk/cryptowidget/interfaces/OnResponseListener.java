@@ -1,6 +1,6 @@
-package com.example.hmmmk.cryptowidget.interfaces;
+package com.hmmmk.cryptowidget.interfaces;
 
-import com.example.hmmmk.cryptowidget.widget.ResponseModel;
+import com.hmmmk.cryptowidget.widget.ResponseModel;
 
 /**
  * Created by hmmmk___ on 26.02.2018.

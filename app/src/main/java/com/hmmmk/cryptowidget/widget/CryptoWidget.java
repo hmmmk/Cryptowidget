@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget.widget;
+package com.hmmmk.cryptowidget.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -7,8 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.example.hmmmk.cryptowidget.R;
-import com.example.hmmmk.cryptowidget.mvp.widgetactivity.WidgetActivity;
+import com.hmmmk.cryptowidget.R;
+import com.hmmmk.cryptowidget.mvp.widgetactivity.WidgetActivity;
 
 /**
  * Created by hmmmk___ on 21.02.2018.
