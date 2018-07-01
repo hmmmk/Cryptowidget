@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget;
+package com.example.hmmmk.cryptowidget.common;
 
 /**
  * Created by hmmmk___ on 02.03.2018.

@@ -14,7 +14,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.hmmmk.cryptowidget.R;
-import com.example.hmmmk.cryptowidget.Utils;
+import com.example.hmmmk.cryptowidget.common.Utils;
 import com.example.hmmmk.cryptowidget.interfaces.OnResponseListener;
 
 import java.text.DecimalFormat;

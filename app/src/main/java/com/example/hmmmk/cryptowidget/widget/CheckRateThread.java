@@ -3,7 +3,7 @@ package com.example.hmmmk.cryptowidget.widget;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.hmmmk.cryptowidget.ExtendedApplication;
+import com.example.hmmmk.cryptowidget.common.ExtendedApplication;
 import com.example.hmmmk.cryptowidget.interfaces.OnResponseListener;
 
 import java.util.List;

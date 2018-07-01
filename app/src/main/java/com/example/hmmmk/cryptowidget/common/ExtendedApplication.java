@@ -1,4 +1,4 @@
-package com.example.hmmmk.cryptowidget;
+package com.example.hmmmk.cryptowidget.common;
 
 import android.app.Application;
 

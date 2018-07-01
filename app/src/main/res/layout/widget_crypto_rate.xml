@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_height="match_parent"
+<FrameLayout
+    android:id="@+id/widget_container"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:layout_margin="8dp"
     android:background="@drawable/rounded_background"
